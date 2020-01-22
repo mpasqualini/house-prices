@@ -38,6 +38,11 @@ correl <- train %>%
             select_if(is.numeric) %>% 
               cor()
 
+correl <- train %>% 
+  select_if(is.numeric) %>% 
+  cor()
+
+
 ggcorrplot(correl, type="lower")
 
 # Inputation----
@@ -55,3 +60,12 @@ train <- train %>%
          Fence = ifelse(is.na(Fence), "No fence", Fence),
          FireplaceQu = ifelse(is.na(FireplaceQu), "No fireplace", FireplaceQu),
          Alley = ifelse(is.na(Alley), "No alley access", Alley))
+
+train_wt_na <- train %>% 
+                drop_na()
+
+train_wt_na %>% 
+  lapply(class)
+
+train_wt_na <- train_wt_na %>% 
+                  mutate_if(is.character, as.factor)
